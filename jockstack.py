@@ -57,14 +57,6 @@ def main():
         jockpos = existing.index(jocksize)
 
         # ----------------------------------------------------------------------
-        # First Jock is just Jock, he already introduced himself
-        # ----------------------------------------------------------------------
-        if i == 0:
-            print(f"{jocksize}  Oi! We be Jock!")
-            jocks[jocksize] = "Jock"
-            continue
-
-        # ----------------------------------------------------------------------
         # Find New Jock's immediate neighbors
         # ----------------------------------------------------------------------
         if jockpos == 0:
@@ -83,12 +75,15 @@ def main():
 
         # ----------------------------------------------------------------------
         # Make Jock's name
+        # First Jock is just Jock
         # First few additions receive Wee, Medium, Big as appropriate until they
         # are used.
         # Medium will end up one one side of Jock or the other, depending on
         # whehter Big or Wee shows up first.
         # ----------------------------------------------------------------------
-        if len(namepool)>0:
+        if i == 0:
+            jockname = "Jock"
+        elif len(namepool)>0:
             if smallername and biggername and "Medium" in namepool:
                 jockname = "Medium-Sized Jock"
                 namepool.remove("Medium")
