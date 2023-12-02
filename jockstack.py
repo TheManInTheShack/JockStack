@@ -122,7 +122,7 @@ def main():
         # Introduce new Jock and add him to the list
         # ----------------------------------------------------------------------
         print("")
-        print(f"{jocksize}  Oi! We be '{jockname}'")
+        print(f"{jocksize}  Oi! We be {jockname}.")
         jocks[jocksize] = jockname
 
     # --------------------------------------------------------------------------

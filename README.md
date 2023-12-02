@@ -12,6 +12,6 @@ Begin with one Jock, who is Jock. As new Jocks are added, they are arranged by s
 - Surely there are some mathematical models that just fit the way these are constructed...there has to be, so what are they?  It's tree shit, right? IDK math.
 - There will be a 'spectroscopy' of the names that is unique to this, because we have a finite range of patterns that will occur with some frequency.  How does that work, and how do we analyze and display that meaningfully?
 - Once the names are constructed, there is no context of parentheses.  Can we build a thing to unravel it and determine where a complex construction actually lies?  Meaning, could we start with the list of names, and accurately put them back in the original randomized order.
-
+- What percent of the time does "No'-As-Big-As-Medium-Sized-Jock-But-Bigger-Than-Wee-Jock Jock" himself come up? There's a chance in each roll, but it's going to require a specific subset of the tree.  This is true for any name.
 
 
