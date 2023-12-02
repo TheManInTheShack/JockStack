@@ -9,7 +9,7 @@ import random
 # ------------------------------------------------------------------------------
 def main():
     # --------------------------------------------------------------------------
-    # Gather ye input
+    # Gather ye input, which is an integer between 1 and 1000
     # --------------------------------------------------------------------------
     print("")
 
@@ -18,7 +18,9 @@ def main():
         i = input("How many Jocks may ye be wantin'?\n")
         try:
             i = int(i)
-            if i < 1000:
+            if i == 0:
+                print("Ye must have at least one Jock, Bigjob!")
+            if i < 1001:
                 numjocks = i
                 print("")
             else:
@@ -26,9 +28,8 @@ def main():
         except:
             print("Crivins! Ye need to be giving us a number, you scunner!")
 
-
     # --------------------------------------------------------------------------
-    # There will be that many Jocks added, arrange them by size and then shuffle
+    # There will be that many Jocks added; arrange them by size and then shuffle
     # to randomize the order in which they will be added to the stack
     # --------------------------------------------------------------------------
     jockpool = list(range(numjocks))
@@ -47,8 +48,8 @@ def main():
     debuginit = True
     for i, jocksize in enumerate(jockpool):
         # ----------------------------------------------------------------------
-        # Get a sorted list of existing Jocks, then add the new Jock to it and
-        # sort, so we can find New Jock's position.
+        # Get a list of existing Jocks, then add the new Jock to it and sort,
+        # so we can find New Jock's position.
         # ----------------------------------------------------------------------
         existing = [x for x in jocks]
         existing.append(jocksize)
@@ -88,14 +89,14 @@ def main():
         # whehter Big or Wee shows up first.
         # ----------------------------------------------------------------------
         if len(namepool)>0:
-            if i == 2:
-                jockname = "Medium-Sized-Jock"
+            if smallername and biggername and "Medium" in namepool:
+                jockname = "Medium-Sized Jock"
                 namepool.remove("Medium")
             elif not smallername and "Wee" in namepool:
-                jockname = "Wee-Jock"
+                jockname = "Wee Jock"
                 namepool.remove("Wee")
             elif not biggername and "Big" in namepool:
-                jockname = "Big-Jock"
+                jockname = "Big Jock"
                 namepool.remove("Big")
             else:
                 jockname = determine_jock_name(smallername, biggername)
@@ -132,7 +133,7 @@ def main():
     # --------------------------------------------------------------------------
     # Finish
     # --------------------------------------------------------------------------
-    print("...and that's all the Jocks t'are!")
+    print("\n...and t'at's all the Jocks t'are!")
 
 # ------------------------------------------------------------------------------
 # Jock's name depends on the names of those immediately larger or smaller.
