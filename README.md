@@ -7,6 +7,7 @@ Begin with one Jock, who is Jock. As new Jocks are added, they are arranged by s
 
 # Upgrade possibilities:
 - Command line interface (done)
+- Bidirectionality of reference - so can be smaller-than, in addition to bigger-than (added)
 - Relative size sometimes matters - with a threshold, there might be a much-bigger-than, etc. (added, tweakable)
 - More unique names with a random chance to come up and override the size chart - Young Jock, Old Jock, Red Jock, Blue Jock, etc.
 
