@@ -88,6 +88,27 @@ def main(args):
             biggername = jocks[biggersize]
 
         # ----------------------------------------------------------------------
+        # For debug
+        # ----------------------------------------------------------------------
+        if args.debug:
+            if debuginit: 
+                print("Jocksizes in order:")
+                print(jockpool)
+                debuginit=False
+            print("")
+            print("="*80)
+            print(f"Iteration:   {i}")
+            print(f"Jocksize:    {jocksize}")
+            print(f"Existing:    {existing}")
+            print(f"Jocks:       {jocks}")
+            print(f"Jockpos:     {jockpos}")
+            print(f"Smallersize: {smallersize}")
+            print(f"Biggersize:  {biggersize}")
+            print(f"Smallername: {smallername}")
+            print(f"Biggername:  {biggername}")
+            print(f"Namepool:    {namepool}")
+
+        # ----------------------------------------------------------------------
         # Make Jock's name
         # First Jock is just Jock
         # First few additions receive Wee, Medium, Big as appropriate until they
@@ -122,27 +143,6 @@ def main(args):
             print(f"Oi! We be {jockname}.")
         jocks[jocksize] = jockname
 
-        # ----------------------------------------------------------------------
-        # For debug
-        # ----------------------------------------------------------------------
-        if args.debug:
-            if debuginit: 
-                print("Jocksizes in order:")
-                print(jockpool)
-                debuginit=False
-            print("")
-            print("="*80)
-            print(f"Iteration:   {i}")
-            print(f"Jocksize:    {jocksize}")
-            print(f"Existing:    {existing}")
-            print(f"Jocks:       {jocks}")
-            print(f"Jockpos:     {jockpos}")
-            print(f"Smallersize: {smallersize}")
-            print(f"Biggersize:  {biggersize}")
-            print(f"Smallername: {smallername}")
-            print(f"Biggername:  {biggername}")
-            print(f"Namepool:    {namepool}")
-
     # --------------------------------------------------------------------------
     # Finish
     # --------------------------------------------------------------------------
@@ -162,19 +162,10 @@ def determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, b
         biggername = biggername.replace(" ","-")
 
     # --------------------------------------------------------------------------
-    # Make the name based on position
-    # --------------------------------------------------------------------------
-    if not smallername:
-        name = f"Smaller-Than-{biggername} Jock"
-    elif not biggername:
-        name = f"Bigger-Than-{smallername} Jock"
-    else:
-        name = f"No'-As-Big-As-{biggername}-But-Bigger-Than-{smallername} Jock"
-
-    # --------------------------------------------------------------------------
-    # Maybe some Jock is MUCH smaller or bigger
+    # Figure out the offsets between this Jock and his neighbors
     # --------------------------------------------------------------------------
     jocksizes = sorted([x for x in jocks])
+    sizerange = jocksizes[-1] - jocksizes[0]
     numjocks = len(jocks)
 
     offset_small = 0
@@ -184,14 +175,65 @@ def determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, b
     if biggersize:
         offset_big = biggersize - jocksize
 
+    offpct_small = offset_small / sizerange
+    offpct_big = offset_big / sizerange
 
-    if numjocks > 6:
-        pass
+    # --------------------------------------------------------------------------
+    # Determine if new Jock is much bigger or smaller
+    # --------------------------------------------------------------------------
+    muchbigger = False
+    muchsmaller = False
+    if numjocks > 5:
+        if offpct_small > 0.35:
+            muchbigger = True
+        if offpct_big > 0.35:
+            muchsmaller = True
+
+    if offpct_small > offpct_big:
+        offset_dir = "small"
+    else:
+        offset_dir = "big"
+
+    # --------------------------------------------------------------------------
+    # Set the size-words
+    # --------------------------------------------------------------------------
+    smalltxt = "Smaller"
+    bigtxt = "Bigger"
+
+    if muchsmaller:
+        smalltxt = "Much-Smaller"
+    if muchbigger:
+        bigtxt = "Much-Bigger"
+
+    # --------------------------------------------------------------------------
+    # Make the name based on position
+    # --------------------------------------------------------------------------
+    if not smallername:
+        name = f"{smalltxt}-Than-{biggername} Jock"
+    elif not biggername:
+        name = f"{bigtxt}-Than-{smallername} Jock"
+    else:
+        if offset_dir == "big":
+            name = f"No'-As-Big-As-{biggername}-But-{bigtxt}-Than-{smallername} Jock"
+        else:
+            name = f"No'-As-Small-As-{smallername}-But-{smalltxt}-Than-{biggername} Jock"
+
+    # --------------------------------------------------------------------------
+    # For debug
+    # --------------------------------------------------------------------------
     if debug:
         print("-----------------------")
         print("offsets")
         print("-----------------------")
-        print(numjocks, smallersize, jocksize, biggersize, offset_small, offset_big)
+        #print(numjocks, smallersize, jocksize, biggersize, offset_small, offset_big, offpct_small, offpct_big)
+        print(f"{numjocks} Jocks so far")
+        print(f"Size range is {sizerange}")
+        print("Sizes:".ljust(20)    ,  str(smallersize).center(10), str(jocksize).center(10), str(biggersize).center(10))
+        print("Offset:".ljust(25)   ,  str(offset_small).center(10) , str(offset_big).center(10))
+        print("Offpct:".ljust(25)   ,  str(round(offpct_small, 2)).center(10) , str(round(offpct_big, 2)).center(10))
+        print(f"Offsetdir: {offset_dir}")
+        print(f"Muchsmaller: {muchsmaller}")
+        print(f"Muchbigger: {muchbigger}")
 
 
     # --------------------------------------------------------------------------
