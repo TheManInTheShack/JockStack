@@ -25,7 +25,6 @@ def main(args):
     # --------------------------------------------------------------------------
     if args.num:
         numjocks = args.num
-        print(f"\nYe've selected {args.num} Jocks, and tha's what ye'll be gettin'!\n")
     else:
         numjocks = None
         while not numjocks:
@@ -33,14 +32,15 @@ def main(args):
             try:
                 i = int(i)
                 if i == 0:
-                    print("Ye must have at least one Jock, Bigjob!")
+                    print("\nYe must have at least one Jock, Bigjob! Try again!")
                 if i < 1001:
                     numjocks = i
-                    print("")
                 else:
-                    print("Ta' can onlie be one t'ousan!")
+                    print("\nTa' can onlie be one t'ousan! Put a smaller number!")
             except:
-                print("Crivins! Ye need to be giving us a number, you scunner!")
+                print("\nCrivins! Ye need to be giving us a number, you scunner!")
+
+    print(f"\nYe've selected {numjocks} Jocks, and tha's what ye'll be gettin'!")
 
     # --------------------------------------------------------------------------
     # There will be that many Jocks added; arrange them by size and then shuffle
