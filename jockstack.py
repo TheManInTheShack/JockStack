@@ -3,30 +3,44 @@
 # Explore the algebra of Jocks' names, relative to other Jocks.
 # ------------------------------------------------------------------------------
 import random
+import argparse
+
+# ------------------------------------------------------------------------------
+# Command line interface
+# ------------------------------------------------------------------------------
+def cli():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("num", nargs="?", type=int, default=0, help="number of Jocks")
+    parser.add_argument("--debug", dest="debug", action="store_true", help="show detailed information")
+    parser.set_defaults(debug=False)
+    args = parser.parse_args()
+    return args
 
 # ------------------------------------------------------------------------------
 # Main
 # ------------------------------------------------------------------------------
-def main():
+def main(args):
     # --------------------------------------------------------------------------
     # Gather ye input, which is an integer between 1 and 1000
     # --------------------------------------------------------------------------
-    print("")
-
-    numjocks = None
-    while not numjocks:
-        i = input("How many Jocks may ye be wantin'?\n")
-        try:
-            i = int(i)
-            if i == 0:
-                print("Ye must have at least one Jock, Bigjob!")
-            if i < 1001:
-                numjocks = i
-                print("")
-            else:
-                print("Ta' can onlie be one t'ousan!")
-        except:
-            print("Crivins! Ye need to be giving us a number, you scunner!")
+    if args.num:
+        numjocks = args.num
+        print(f"\nYe've selected {args.num} Jocks, and tha's what ye'll be gettin'!\n")
+    else:
+        numjocks = None
+        while not numjocks:
+            i = input("\nHow many Jocks may ye be wantin'?\n")
+            try:
+                i = int(i)
+                if i == 0:
+                    print("Ye must have at least one Jock, Bigjob!")
+                if i < 1001:
+                    numjocks = i
+                    print("")
+                else:
+                    print("Ta' can onlie be one t'ousan!")
+            except:
+                print("Crivins! Ye need to be giving us a number, you scunner!")
 
     # --------------------------------------------------------------------------
     # There will be that many Jocks added; arrange them by size and then shuffle
@@ -60,18 +74,18 @@ def main():
         # Find New Jock's immediate neighbors
         # ----------------------------------------------------------------------
         if jockpos == 0:
-            smallerpos = None
+            smallersize = None
             smallername = None
         else:
-            smallerpos = existing[jockpos-1]
-            smallername = jocks[smallerpos]
+            smallersize = existing[jockpos-1]
+            smallername = jocks[smallersize]
 
         if jockpos == len(existing)-1:
-            biggerpos = None
+            biggersize = None
             biggername = None
         else:
-            biggerpos = existing[jockpos+1]
-            biggername = jocks[biggerpos]
+            biggersize = existing[jockpos+1]
+            biggername = jocks[biggersize]
 
         # ----------------------------------------------------------------------
         # Make Jock's name
@@ -94,36 +108,40 @@ def main():
                 jockname = "Big Jock"
                 namepool.remove("Big")
             else:
-                jockname = determine_jock_name(smallername, biggername)
+                jockname = determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, biggername, debug=args.debug)
         else:
-            jockname = determine_jock_name(smallername, biggername)
-
-        # ----------------------------------------------------------------------
-        # For debug
-        # ----------------------------------------------------------------------
-        if False:
-            if debuginit: 
-                print("Jocksizes in order:")
-                print(jockpool)
-                debuginit=False
-            print("")
-            print(f"Iteration:   {i}")
-            print(f"Jocksize:    {jocksize}")
-            print(f"Existing:    {existing}")
-            print(f"Jocks:       {jocks}")
-            print(f"Jockpos:     {jockpos}")
-            print(f"Smallerpos:  {smallerpos}")
-            print(f"Biggerpos:   {biggerpos}")
-            print(f"Smallername: {smallername}")
-            print(f"Biggername:  {biggername}")
-            print(f"Namepool:    {namepool}")
+            jockname = determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, biggername, debug=args.debug)
 
         # ----------------------------------------------------------------------
         # Introduce new Jock and add him to the list
         # ----------------------------------------------------------------------
         print("")
-        print(f"{jocksize}  Oi! We be {jockname}.")
+        if False:
+            print(f"{jocksize}  Oi! We be {jockname}.")
+        else:
+            print(f"Oi! We be {jockname}.")
         jocks[jocksize] = jockname
+
+        # ----------------------------------------------------------------------
+        # For debug
+        # ----------------------------------------------------------------------
+        if args.debug:
+            if debuginit: 
+                print("Jocksizes in order:")
+                print(jockpool)
+                debuginit=False
+            print("")
+            print("="*80)
+            print(f"Iteration:   {i}")
+            print(f"Jocksize:    {jocksize}")
+            print(f"Existing:    {existing}")
+            print(f"Jocks:       {jocks}")
+            print(f"Jockpos:     {jockpos}")
+            print(f"Smallersize: {smallersize}")
+            print(f"Biggersize:  {biggersize}")
+            print(f"Smallername: {smallername}")
+            print(f"Biggername:  {biggername}")
+            print(f"Namepool:    {namepool}")
 
     # --------------------------------------------------------------------------
     # Finish
@@ -133,7 +151,7 @@ def main():
 # ------------------------------------------------------------------------------
 # Jock's name depends on the names of those immediately larger or smaller.
 # ------------------------------------------------------------------------------
-def determine_jock_name(smallername, biggername):
+def determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, biggername, debug=False):
     # --------------------------------------------------------------------------
     # Each entry will only have the space at the final Jock, all else will be 
     # hyphenated
@@ -144,20 +162,48 @@ def determine_jock_name(smallername, biggername):
         biggername = biggername.replace(" ","-")
 
     # --------------------------------------------------------------------------
-    # Make and return the name based on position
+    # Make the name based on position
     # --------------------------------------------------------------------------
     if not smallername:
-        return f"Smaller-Than-{biggername} Jock"
+        name = f"Smaller-Than-{biggername} Jock"
     elif not biggername:
-        return f"Bigger-Than-{smallername} Jock"
+        name = f"Bigger-Than-{smallername} Jock"
     else:
-        return f"No'-As-Big-As-{biggername}-But-Bigger-Than-{smallername} Jock"
+        name = f"No'-As-Big-As-{biggername}-But-Bigger-Than-{smallername} Jock"
+
+    # --------------------------------------------------------------------------
+    # Maybe some Jock is MUCH smaller or bigger
+    # --------------------------------------------------------------------------
+    jocksizes = sorted([x for x in jocks])
+    numjocks = len(jocks)
+
+    offset_small = 0
+    offset_big = 0
+    if smallersize:
+        offset_small = jocksize - smallersize
+    if biggersize:
+        offset_big = biggersize - jocksize
+
+
+    if numjocks > 6:
+        pass
+    if debug:
+        print("-----------------------")
+        print("offsets")
+        print("-----------------------")
+        print(numjocks, smallersize, jocksize, biggersize, offset_small, offset_big)
+
+
+    # --------------------------------------------------------------------------
+    # Send back the final name
+    # --------------------------------------------------------------------------
+    return name
 
 # ------------------------------------------------------------------------------
 # Run
 # ------------------------------------------------------------------------------
 if __name__ == "__main__":
-    main()
+    main(cli())
 
 
 

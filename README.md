@@ -5,6 +5,13 @@ What is new Jock called?
 # Premise
 Begin with one Jock, who is Jock. As new Jocks are added, they are arranged by size, relative to the other Jocks. Once a Jock is named, that's his name. Jock Stack is capable of moving in either direction infinitely, if bigger or smaller Jocks are added.
 
+# Upgrade possibilities:
+- Command line interface (done)
+- Relative size sometimes matters - with a threshold, there might be a much-bigger-than, etc. (added, tweakable)
+- More unique names with a random chance to come up and override the size chart - Young Jock, Old Jock, Red Jock, Blue Jock, etc.
+
+- UI/webapp
+
 
 # Analytical possibilities:
 - Medium-Sized Jock may or may not be accurately named when he arrives - what is the range and frequency of his variations?
