@@ -23,3 +23,5 @@ Begin with one Jock, who is Jock. As new Jocks are added, they are arranged by s
 - What percent of the time does "No'-As-Big-As-Medium-Sized-Jock-But-Bigger-Than-Wee-Jock Jock" himself come up? There's a chance in each roll, but it's going to require a specific subset of the tree.  This is true for any name.
 
 
+
+
