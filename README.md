@@ -22,6 +22,3 @@ Begin with one Jock, who is Jock. As new Jocks are added, they are arranged by s
 - Once the names are constructed, there is no context of parentheses.  Can we build a thing to unravel it and determine where a complex construction actually lies?  Meaning, could we start with the list of names, and accurately put them back in the original randomized order.
 - What percent of the time does "No'-As-Big-As-Medium-Sized-Jock-But-Bigger-Than-Wee-Jock Jock" himself come up? There's a chance in each roll, but it's going to require a specific subset of the tree.  This is true for any name.
 
-
-
-
