@@ -3,11 +3,12 @@
 # Explore the algebra of Jocks' names, relative to other Jocks.
 # ------------------------------------------------------------------------------
 import random
+import sys
 import argparse
 
-# ------------------------------------------------------------------------------
-# Command line interface
-# ------------------------------------------------------------------------------
+# --------------------------------------------------------------------------
+# Argument parsing
+# --------------------------------------------------------------------------
 def cli():
     parser = argparse.ArgumentParser()
     parser.add_argument("num", nargs="?", type=int, default=0, help="number of Jocks")
@@ -19,12 +20,14 @@ def cli():
 # ------------------------------------------------------------------------------
 # Main
 # ------------------------------------------------------------------------------
-def main(args):
+def main(num, display=True):
     # --------------------------------------------------------------------------
     # Gather ye input, which is an integer between 1 and 1000
     # --------------------------------------------------------------------------
-    if args.num:
-        numjocks = args.num
+    if (not display) and num == 0:
+        numjocks = 0
+    elif num > 0:
+        numjocks = num
     else:
         numjocks = None
         while not numjocks:
@@ -40,8 +43,40 @@ def main(args):
             except:
                 print("\nCrivins! Ye need to be giving us a number, you scunner!")
 
-    print(f"\nYe've selected {numjocks} Jocks, and tha's what ye'll be gettin'!")
+    if display:
+        print(f"\nYe've selected {numjocks} Jocks, and tha's what ye'll be gettin'!")
 
+    # --------------------------------------------------------------------------
+    # Do the stacking of the Jocks
+    # --------------------------------------------------------------------------
+    jocks = stack_jocks(numjocks)
+
+    # --------------------------------------------------------------------------
+    # Compile the output text
+    # --------------------------------------------------------------------------
+    stack = []
+    if len(jocks) == 0:
+        stack.append("T'ere hain't na Jocks here, Bigjob!")
+    else:
+        stack.append(f"T'ere are to be {numjocks} jocks this time!")
+        for jock in jocks:
+            line = f"Oi! We be {jocks[jock]}."
+            stack.append(line)
+        stack.append("...and t'at's all the Jocks t'are!")
+
+    # --------------------------------------------------------------------------
+    # Show the output on the screen and return it
+    # --------------------------------------------------------------------------
+    if display:
+        for line in stack:
+            print(line)
+
+    return "\n".join(stack)
+
+# ------------------------------------------------------------------------------
+# Do the business 
+# ------------------------------------------------------------------------------
+def stack_jocks(numjocks, debug=False):
     # --------------------------------------------------------------------------
     # There will be that many Jocks added; arrange them by size and then shuffle
     # to randomize the order in which they will be added to the stack
@@ -90,7 +125,7 @@ def main(args):
         # ----------------------------------------------------------------------
         # For debug
         # ----------------------------------------------------------------------
-        if args.debug:
+        if debug:
             if debuginit: 
                 print("Jocksizes in order:")
                 print(jockpool)
@@ -129,24 +164,19 @@ def main(args):
                 jockname = "Big Jock"
                 namepool.remove("Big")
             else:
-                jockname = determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, biggername, debug=args.debug)
+                jockname = determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, biggername, debug=debug)
         else:
-            jockname = determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, biggername, debug=args.debug)
+            jockname = determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, biggername, debug=debug)
 
         # ----------------------------------------------------------------------
-        # Introduce new Jock and add him to the list
+        # Add this Jock to the list of Jocks
         # ----------------------------------------------------------------------
-        print("")
-        if False:
-            print(f"{jocksize}  Oi! We be {jockname}.")
-        else:
-            print(f"Oi! We be {jockname}.")
         jocks[jocksize] = jockname
 
     # --------------------------------------------------------------------------
     # Finish
     # --------------------------------------------------------------------------
-    print("\n...and t'at's all the Jocks t'are!")
+    return jocks
 
 # ------------------------------------------------------------------------------
 # Jock's name depends on the names of those immediately larger or smaller.
@@ -245,7 +275,9 @@ def determine_jock_name(jocks, jocksize, smallersize, smallername, biggersize, b
 # Run
 # ------------------------------------------------------------------------------
 if __name__ == "__main__":
-    main(cli())
+    args = cli()
+    num = args.num
+    main(num)
 
 
 
