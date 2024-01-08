@@ -1,3 +1,7 @@
 *~
 *.swp
 foo
+wsgi.py
+JockStack.sock
+JockStack_env/
+__pycache__/
