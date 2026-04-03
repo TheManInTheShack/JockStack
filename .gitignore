@@ -1,7 +1,23 @@
 *~
 *.swp
-foo
-wsgi.py
-JockStack.sock
-JockStack_env/
 __pycache__/
+*.pyc
+*.pyo
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Database (lives on the server, not in git)
+data/*.db
+
+# Godot export output
+frontend/export/
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
