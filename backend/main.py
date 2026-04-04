@@ -3,8 +3,9 @@
 # ------------------------------------------------------------------------------
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from models.db import init_db
-from routers import jocks
+from routers import jocks, stats
 
 app = FastAPI(title="JockStack")
 
@@ -24,6 +25,13 @@ app.add_middleware(
 )
 
 app.include_router(jocks.router, prefix="/api")
+app.include_router(stats.router, prefix="/api")
+
+
+@app.get("/stats", response_class=HTMLResponse)
+def stats_page():
+    from stats_page import render_stats_page
+    return render_stats_page()
 
 
 @app.get("/health")
