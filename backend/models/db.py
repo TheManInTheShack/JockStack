@@ -9,7 +9,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 
 
-DB_PATH = os.environ.get("JOCKSTACK_DB_PATH", "../data/jockstack.db")
+DB_PATH = os.environ.get("JOCKSTACK_DB_PATH", "data/jockstack.db")
 
 
 @contextmanager

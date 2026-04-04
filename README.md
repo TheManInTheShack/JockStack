@@ -45,9 +45,10 @@ archive/    Original v1 Dash/Python implementation
 
 - [ ] From the repo root, start FastAPI with auto-reload
   ```
-  python -m uvicorn backend.main:app --reload
+  python -m uvicorn main:app --app-dir backend --reload
   ```
   > **Note:** Use `python -m uvicorn`, not `uvicorn` directly — same reason as above.
+  > `--app-dir backend` tells uvicorn to resolve imports from the `backend/` folder.
 
 - [ ] Confirm the server is running — you should see:
   ```
@@ -80,7 +81,7 @@ archive/    Original v1 Dash/Python implementation
 
 ### Updating after a pull
 
-Run `update.bat` (Windows) from the repo root — it pulls latest, ensures the venv exists, and reinstalls dependencies.
+Run `update.bat` (Windows) from the repo root — it pulls latest, ensures the venv exists, reinstalls dependencies, and prints the correct run command.
 
 ---
 

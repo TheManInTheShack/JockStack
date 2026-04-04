@@ -39,7 +39,7 @@ if errorlevel 1 (
 echo.
 echo [JockStack] Done. To start the dev server:
 echo.
-echo     python -m uvicorn backend.main:app --reload
+echo     python -m uvicorn main:app --app-dir backend --reload
 echo.
 echo Then open: http://localhost:8000/docs
 echo.
