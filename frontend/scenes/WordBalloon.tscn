@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://wordballoon01"]
+
+[ext_resource type="Script" path="res://scripts/WordBalloon.gd" id="1_wb"]
+
+[node name="WordBalloon" type="Control"]
+custom_minimum_size = Vector2(0, 120)
+size_flags_horizontal = 3
+script = ExtResource("1_wb")
+
+[node name="NameLabel" type="Label" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 22
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

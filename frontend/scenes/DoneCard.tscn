@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://donecard01"]
+
+[ext_resource type="Script" path="res://scripts/DoneCard.gd" id="1_dc"]
+
+[node name="DoneCard" type="PanelContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_dc")
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="Margin"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.88, 0.88, 1, 1)
+theme_override_font_sizes/font_size = 13
+autowrap_mode = 3
