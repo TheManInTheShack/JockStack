@@ -1,0 +1,103 @@
+[gd_scene load_steps=3 format=3 uid="uid://jockstack001"]
+
+[ext_resource type="Script" path="res://scripts/JockStack.gd" id="1_jkscript"]
+[ext_resource type="PackedScene" path="res://scenes/JockCard.tscn" id="2_jkcard"]
+
+[node name="JockStack" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("1_jkscript")
+
+[node name="HTTP" type="HTTPRequest" parent="."]
+
+[node name="VBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/separation = 12
+offset_left = 32.0
+offset_top = 24.0
+offset_right = -32.0
+offset_bottom = -24.0
+
+[node name="TitleLabel" type="Label" parent="VBox"]
+layout_mode = 2
+text = "JockStack"
+theme_override_font_sizes/font_size = 36
+
+[node name="SubtitleLabel" type="Label" parent="VBox"]
+layout_mode = 2
+text = "Explore the algebra of Jocks' names."
+theme_override_font_sizes/font_size = 14
+
+[node name="HSep0" type="HSeparator" parent="VBox"]
+layout_mode = 2
+
+[node name="InputRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="InputLabel" type="Label" parent="VBox/InputRow"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "How many Jocks?"
+theme_override_font_sizes/font_size = 16
+
+[node name="NumInput" type="SpinBox" parent="VBox/InputRow"]
+layout_mode = 2
+min_value = 1.0
+max_value = 1000.0
+value = 10.0
+custom_minimum_size = Vector2(120, 0)
+
+[node name="GenerateBtn" type="Button" parent="VBox/InputRow"]
+layout_mode = 2
+text = "Stack the Jocks!"
+theme_override_font_sizes/font_size = 16
+
+[node name="StatusLabel" type="Label" parent="VBox"]
+layout_mode = 2
+text = ""
+theme_override_font_sizes/font_size = 15
+autowrap_mode = 3
+
+[node name="RevealRow" type="HBoxContainer" parent="VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+visible = false
+
+[node name="RevealBtn" type="Button" parent="VBox/RevealRow"]
+layout_mode = 2
+text = "Oi! New Jock!"
+theme_override_font_sizes/font_size = 16
+
+[node name="ShowAllBtn" type="Button" parent="VBox/RevealRow"]
+layout_mode = 2
+text = "Show All"
+theme_override_font_sizes/font_size = 16
+
+[node name="CounterLabel" type="Label" parent="VBox/RevealRow"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "0 / 0"
+theme_override_font_sizes/font_size = 15
+
+[node name="HSep1" type="HSeparator" parent="VBox"]
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="JockList" type="VBoxContainer" parent="VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 6
+
+[node name="StatsBtn" type="Button" parent="VBox"]
+layout_mode = 2
+text = "View Stats"
+theme_override_font_sizes/font_size = 14
