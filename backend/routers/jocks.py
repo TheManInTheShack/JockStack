@@ -11,11 +11,9 @@ router = APIRouter()
 
 @router.post("/generate", response_model=GenerateResponse)
 def generate(req: GenerateRequest):
-    # Run the algorithm — returns dict keyed by size int
+    # Run the algorithm — returns list in generation order (the display order)
     raw = stack_jocks(req.num_jocks)
-
-    # Sort by size ascending for a consistent display order
-    jocks = [JockEntry(size=size, name=name) for size, name in sorted(raw.items())]
+    jocks = [JockEntry(size=r["size"], name=r["name"]) for r in raw]
 
     # Derive per-run stats
     names = [j.name for j in jocks]

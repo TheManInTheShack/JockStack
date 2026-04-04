@@ -17,7 +17,8 @@ static func stack_jocks(numjocks: int) -> Array:
 	pool.shuffle()
 
 	var namepool: Array[String] = ["Wee", "Medium", "Big"]
-	var jocks: Dictionary = {}  # size (int) -> name (String)
+	var jocks: Dictionary = {}  # size (int) -> name (String), for neighbour lookups
+	var result: Array = []      # generation order — the display order
 
 	for i in range(pool.size()):
 		var jocksize: int = pool[i]
@@ -67,13 +68,8 @@ static func stack_jocks(numjocks: int) -> Array:
 			)
 
 		jocks[jocksize] = jockname
+		result.append({"size": jocksize, "name": jockname})
 
-	# Return sorted by size ascending, as Array of {size, name} dicts
-	var result: Array = []
-	var sizes: Array = jocks.keys()
-	sizes.sort()
-	for size in sizes:
-		result.append({"size": size, "name": jocks[size]})
 	return result
 
 

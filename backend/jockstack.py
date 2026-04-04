@@ -6,19 +6,21 @@
 import random
 
 
-def stack_jocks(numjocks: int) -> dict:
+def stack_jocks(numjocks: int) -> list[dict]:
     """
     Generate a stack of numjocks Jocks, naming each based on its relative
     position among its neighbours.
 
-    Returns a dict keyed by size (int), value is the Jock's name (str).
-    The dict is not ordered — callers should sort by key if display order matters.
+    Returns a list of {"size": int, "name": str} dicts in GENERATION ORDER —
+    the randomised order in which Jocks arrived. This is the display order:
+    each new Jock's name makes sense relative to those already revealed.
     """
     jockpool = list(range(numjocks))
     random.shuffle(jockpool)
 
     namepool = ["Wee", "Medium", "Big"]
-    jocks = {}
+    jocks = {}   # size -> name, for neighbour lookups
+    result = []  # generation order — what callers get
 
     for i, jocksize in enumerate(jockpool):
         # Build a sorted list of all sizes so far + the new one
@@ -63,8 +65,9 @@ def stack_jocks(numjocks: int) -> dict:
             )
 
         jocks[jocksize] = jockname
+        result.append({"size": jocksize, "name": jockname})
 
-    return jocks
+    return result
 
 
 def determine_jock_name(

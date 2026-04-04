@@ -11,7 +11,6 @@ var _api_base: String:
 @onready var _status_label: Label      = $VBox/StatusLabel
 @onready var _reveal_row: HBoxContainer = $VBox/RevealRow
 @onready var _reveal_btn: Button       = $VBox/RevealRow/RevealBtn
-@onready var _show_all_btn: Button     = $VBox/RevealRow/ShowAllBtn
 @onready var _counter_label: Label     = $VBox/RevealRow/CounterLabel
 @onready var _jock_list: VBoxContainer = $VBox/Scroll/JockList
 @onready var _stats_btn: Button        = $VBox/StatsBtn
@@ -26,7 +25,6 @@ var _revealed: int = 0
 func _ready() -> void:
 	_generate_btn.pressed.connect(_on_generate)
 	_reveal_btn.pressed.connect(_on_reveal_next)
-	_show_all_btn.pressed.connect(_on_show_all)
 	_http.request_completed.connect(_on_request_completed)
 	_stats_btn.pressed.connect(_on_stats_btn_pressed)
 	_set_reveal_visible(false)
@@ -93,14 +91,6 @@ func _on_reveal_next() -> void:
 	_update_counter()
 	if _revealed >= _jocks.size():
 		_finish_reveal()
-
-
-func _on_show_all() -> void:
-	while _revealed < _jocks.size():
-		_reveal_one(_jocks[_revealed])
-		_revealed += 1
-	_update_counter()
-	_finish_reveal()
 
 
 func _reveal_one(jock: Dictionary) -> void:
