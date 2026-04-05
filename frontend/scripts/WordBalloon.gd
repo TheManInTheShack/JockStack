@@ -4,7 +4,8 @@ extends Control
 const TRIANGLE_HEIGHT := 36.0
 const CORNER_RADIUS   := 14
 
-var _pointer_x: float = -1.0  # local x for triangle tip; -1 = centred
+var _pointer_x:  float  = -1.0  # local x for triangle tip; -1 = centred
+var _raw_name:   String = ""    # name without display prefix
 
 @onready var _label: Label = $NameLabel
 
@@ -25,7 +26,8 @@ func _ready() -> void:
 
 
 func set_jock(jock_name: String) -> void:
-	_label.text = jock_name
+	_raw_name   = jock_name
+	_label.text = "Oi! We be " + jock_name + "."
 	_pointer_x  = -1.0
 	visible     = true
 	queue_redraw()
@@ -37,7 +39,7 @@ func update_pointer(global_x: float) -> void:
 
 
 func get_current_name() -> String:
-	return _label.text
+	return _raw_name  # raw name, without display prefix
 
 
 func _draw() -> void:

@@ -146,7 +146,7 @@ func _launch_balloon_fly(old_name: String) -> void:
 	fly.add_theme_stylebox_override("panel", style)
 
 	# Label — matches balloon text style
-	fly_lbl.text                 = old_name
+	fly_lbl.text                 = "Oi! We be " + old_name + "."
 	fly_lbl.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	fly_lbl.vertical_alignment   = VERTICAL_ALIGNMENT_CENTER
 	fly_lbl.autowrap_mode        = TextServer.AUTOWRAP_WORD_SMART

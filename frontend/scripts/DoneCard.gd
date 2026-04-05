@@ -20,4 +20,4 @@ func _ready() -> void:
 
 
 func setup(jock_name: String) -> void:
-	$Margin/NameLabel.text = jock_name
+	$Margin/NameLabel.text = "Oi! We be " + jock_name + "."
