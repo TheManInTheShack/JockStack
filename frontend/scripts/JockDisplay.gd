@@ -66,10 +66,15 @@ func _relayout(animate: bool) -> void:
 		for col in count:
 			if idx >= total:
 				break
-			var puppet := _entries[idx].puppet as Control
+			var entry  := _entries[idx]
+			var puppet := entry.puppet as JockPuppet
 			var target := Vector2(start_x + col * (slot_w + GAP_H), y)
 
 			puppet.size = Vector2(slot_w, slot_h)
+
+			# Scale drawn height by rank: smallest ~42%, largest ~58% of slot
+			var rank_pct := float(idx) / float(maxi(total - 1, 1))
+			puppet.set_draw_scale(lerpf(0.42, 0.58, rank_pct))
 
 			if animate and puppet.is_inside_tree() and puppet.position != Vector2.ZERO:
 				create_tween()\
