@@ -66,7 +66,7 @@ func _relayout(animate: bool) -> void:
 		for col in count:
 			if idx >= total:
 				break
-			var entry  := _entries[idx]
+			var entry: Dictionary = _entries[idx]
 			var puppet := entry.puppet as JockPuppet
 			var target := Vector2(start_x + col * (slot_w + GAP_H), y)
 
