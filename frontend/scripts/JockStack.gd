@@ -81,7 +81,7 @@ func _on_reveal_next() -> void:
 
 	_reveal_btn.disabled = true
 
-	var jock := _jocks[_revealed]
+	var jock: Dictionary = _jocks[_revealed]
 	_revealed += 1
 	_update_counter()
 
