@@ -29,6 +29,7 @@ func _ready() -> void:
 	_reveal_btn.pressed.connect(_on_reveal_next)
 	_stats_btn.pressed.connect(_on_stats_pressed)
 	_http.request_completed.connect(_on_request_completed)
+	_http.timeout = 10.0
 	_reveal_row.visible = false
 	_status_label.text  = ""
 
@@ -57,8 +58,17 @@ func _on_request_completed(
 	result: int, code: int, _h: PackedStringArray, body: PackedByteArray
 ) -> void:
 	_generate_btn.disabled = false
-	if result != HTTPRequest.RESULT_SUCCESS or code != 200:
-		_status_label.text = "Crivens! Somethin' went wrong! (HTTP %d)" % code
+	if result != HTTPRequest.RESULT_SUCCESS:
+		match result:
+			HTTPRequest.RESULT_CANT_CONNECT:
+				_status_label.text = "Crivens! Couldnae connect — is the backend runnin'?"
+			HTTPRequest.RESULT_TIMEOUT:
+				_status_label.text = "Crivens! The server took too long tae respond!"
+			_:
+				_status_label.text = "Crivens! Connection failed (code %d)" % result
+		return
+	if code != 200:
+		_status_label.text = "Crivens! Server error (HTTP %d)" % code
 		return
 	var data = JSON.parse_string(body.get_string_from_utf8())
 	if data == null:
