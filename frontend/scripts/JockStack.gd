@@ -78,7 +78,7 @@ func _on_request_completed(
 	if _jocks.is_empty():
 		_status_label.text = "T'ere hain't na Jocks here, Bigjob!"
 		return
-	_status_label.text  = "T'ere are to be %d Jocks this time!" % _jocks.size()
+	_status_label.text  = "T'ere are to be %d jocks this time!" % _jocks.size()
 	_reveal_row.visible = true
 	_update_counter()
 
@@ -105,7 +105,7 @@ func _on_reveal_next() -> void:
 
 	if _revealed >= _jocks.size():
 		_reveal_row.visible = false
-		_status_label.text  = "…and t'at's all the Jocks t'ere!"
+		_status_label.text  = "...and t'at's all the Jocks t'are!"
 
 	# After puppet settles, sharpen the balloon's triangle pointer
 	_point_balloon_after_settle(jock.size)
